@@ -31,12 +31,16 @@ El controlador se encarga de mediar entre la vista y el modelo.
 """
 
 
-def new_controller():
+def new_controller(data_organization):
     """
     Crea una instancia del modelo
     """
     #TODO: Llamar la función del modelo que crea las estructuras de datos
-    pass
+    control = {
+        "model": None
+    }
+    control["model"] = model.new_data_structs(data_organization)
+    return control
 
 
 # Funciones para la carga de datos
@@ -46,17 +50,29 @@ def load_data(control, filename):
     Carga los datos del reto
     """
     # TODO: Realizar la carga de datos
-    pass
+    data_struc=control["model"]
+    op_file=open(filename,"r",encoding="utf8")
+    reader=csv.DictReader(op_file,delimiter=",")
+    
+    for li in reader:
+        data_struc=model.add_data(data_struc,li)
+    op_file.close()
+
+    return data_struc
 
 
 # Funciones de ordenamiento
 
-def sort(control):
+def sort(control, size, sortType):
     """
     Ordena los datos del modelo
     """
     #TODO: Llamar la función del modelo para ordenar los datos
-    pass
+    start_time = get_time()
+    model.sort(control, size, sortType)
+    end_time = get_time()
+    delta_time = float(end_time-start_time)
+    return delta_time
 
 
 # Funciones de consulta sobre el catálogo
@@ -66,7 +82,8 @@ def get_data(control, id):
     Retorna un dato por su ID.
     """
     #TODO: Llamar la función del modelo para obtener un dato
-    pass
+    data = model.get_data(control["model"], id)
+    return data
 
 
 def req_1(control):

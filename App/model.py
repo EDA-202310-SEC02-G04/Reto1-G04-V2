@@ -44,13 +44,20 @@ dos listas, una para los videos, otra para las categorias de los mismos.
 # Construccion de modelos
 
 
-def new_data_structs():
+def new_data_structs(data_organization):
     """
     Inicializa las estructuras de datos del modelo. Las crea de
     manera vacía para posteriormente almacenar la información.
     """
     #TODO: Inicializar las estructuras de datos
-    pass
+    data_structs = {
+        "data": None,
+    }
+
+    data_structs["data"] = lt.newList(datastructure=data_organization,
+                                     cmpfunction=compare)
+
+    return data_structs
 
 
 # Funciones para agregar informacion al modelo
@@ -60,7 +67,9 @@ def add_data(data_structs, data):
     Función para agregar nuevos elementos a la lista
     """
     #TODO: Crear la función para agregar elementos a una lista
-    pass
+    lt.addLast(data_structs["data"], data)
+
+    return data_structs
 
 
 # Funciones para creacion de datos
@@ -70,7 +79,11 @@ def new_data(id, info):
     Crea una nueva estructura para modelar los datos
     """
     #TODO: Crear la función para estructurar los datos
-    pass
+    data = {'id': 0, "info": ""}
+    data["id"] = id
+    data["info"] = info
+
+    return data
 
 
 # Funciones de consulta
@@ -80,7 +93,11 @@ def get_data(data_structs, id):
     Retorna un dato a partir de su ID
     """
     #TODO: Crear la función para obtener un dato de una lista
-    pass
+    pos_data = lt.isPresent(data_structs["data"], id)
+    if pos_data > 0:
+        data = lt.getElement(data_structs["data"], pos_data)
+        return data
+    return None
 
 
 def data_size(data_structs):
@@ -88,7 +105,7 @@ def data_size(data_structs):
     Retorna el tamaño de la lista de datos
     """
     #TODO: Crear la función para obtener el tamaño de una lista
-    pass
+    return lt.size(data_structs["data"])
 
 
 def req_1(data_structs):
@@ -162,7 +179,12 @@ def compare(data_1, data_2):
     Función encargada de comparar dos datos
     """
     #TODO: Crear función comparadora de la lista
-    pass
+    if data_1["id"] > data_2["id"]:
+        return 1
+    elif data_1["id"] < data_2["id"]:
+        return -1
+    else:
+        return 0
 
 # Funciones de ordenamiento
 
@@ -178,7 +200,7 @@ def sort_criteria(data_1, data_2):
         _type_: _description_
     """
     #TODO: Crear función comparadora para ordenar
-    pass
+    return data_1["id"] > data_2["id"]
 
 
 def sort(data_structs):

@@ -27,7 +27,7 @@ from DISClib.ADT import list as lt
 from DISClib.ADT import stack as st
 from DISClib.ADT import queue as qu
 assert cf
-from tabulate import tabulate
+#from tabulate import tabulate
 import traceback
 
 """
@@ -38,12 +38,13 @@ operación solicitada
 """
 
 
-def new_controller():
+def new_controller(data_organization):
     """
         Se crea una instancia del controlador
     """
     #TODO: Llamar la función del controlador donde se crean las estructuras de datos
-    pass
+    control = controller.new_controller(data_organization)
+    return control
 
 
 def print_menu():
@@ -60,12 +61,13 @@ def print_menu():
     print("0- Salir")
 
 
-def load_data(control):
+def load_data(control, ruta):
     """
     Carga los datos
     """
-    #TODO: Realizar la carga de datos
-    pass
+    ruta=cf.data_dir + 'Dian\Salida_agregados_renta_juridicos_AG-small.csv'
+    data = controller.load_data(control, ruta)
+    return data
 
 
 def print_data(control, id):
@@ -140,7 +142,7 @@ def print_req_8(control):
 
 
 # Se crea el controlador asociado a la vista
-control = new_controller()
+control = new_controller("ARRAY_LIST")
 
 # main del reto
 if __name__ == "__main__":
@@ -155,7 +157,21 @@ if __name__ == "__main__":
         try:
             if int(inputs) == 1:
                 print("Cargando información de los archivos ....\n")
-                data = load_data(control)
+                ruta=cf.data_dir + 'Dian\Salida_agregados_renta_juridicos_AG-small.csv'
+                data = load_data(control, ruta)
+                print("La cantidad de datos cargados son " + str(lt.size(data["data"]))+ ("\n"))
+                
+                print(data["data"]["elements"][0])
+                print("\n" + "////////////////////////////////////////////////////////////////////////////" + "\n")
+                print(data["data"]["elements"][1])
+                print("\n" + "////////////////////////////////////////////////////////////////////////////" + "\n")
+                print(data["data"]["elements"][2]) 
+                print("\n" + "////////////////////////////////////////////////////////////////////////////" + "\n")               
+                print(data["data"]["elements"][-3])
+                print("\n" + "////////////////////////////////////////////////////////////////////////////" + "\n")
+                print(data["data"]["elements"][-2])
+                print("\n" + "////////////////////////////////////////////////////////////////////////////" + "\n")
+                print(data["data"]["elements"][-1])
             elif int(inputs) == 2:
                 print_req_1(control)
 
