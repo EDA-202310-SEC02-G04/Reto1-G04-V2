@@ -287,7 +287,7 @@ def req_6(data_structs, anio_pedido):
             else:
                 sectoranio=lt.lastElement(sa.sort((lt.subList(lista_agrupada_anio[indice_anioo], inicio, (indice+1-inicio))), sort_criteria_ingresos_netos))
                 
-            lt.addFirst((lista_sectores[0]),tuple((lista_agrupada_anio[indice_anioo][inicio]['Nombre sector económico']),sectoranio))
+            lt.addFirst((lista_sectores[0]),tuple((lista_agrupada_anio[indice_anioo][inicio]['Actividad económica']),sectoranio))
             inicio=indice+1
             indice=inicio 
         indice_anioo+=1
