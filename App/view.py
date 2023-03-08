@@ -117,12 +117,9 @@ def print_req_5(control):
     return controller.req_5(control)
 
 
-def print_req_6(control):
-    """
-        Función que imprime la solución del Requerimiento 6 en consola
-    """
-    # TODO: Imprimir el resultado del requerimiento 6
-    pass
+def print_req_6(control, anio_pedido):
+    print(controller.req_6(control, anio_pedido))
+
 
 
 def print_req_7(control, año_inicio, año_fin, N_valor):
@@ -188,7 +185,8 @@ if __name__ == "__main__":
                 print_req_5(control)
 
             elif int(inputs) == 7:
-                print_req_6(control)
+                anio_pedido=int(input("elija el año que desea revisar "))
+                print_req_6(control,anio_pedido)
 
             elif int(inputs) == 8:
                 año_inicio = input("Introduzca el año inicial: \n")
