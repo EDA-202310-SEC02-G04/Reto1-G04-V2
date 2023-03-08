@@ -115,7 +115,7 @@ def req_1(data_structs):
     Función que soluciona el requerimiento 1
     """
     # TODO: Realizar el requerimiento 1
-    datos_ordenados = sa.sort(data_structs, com_req_1)
+    datos_ordenados = merg.sort(data_structs, com_req_1)
     iterado = lt.iterator(datos_ordenados)
     lista_aux = {
         "data": None
@@ -135,7 +135,7 @@ def req_2(data_structs):
     Función que soluciona el requerimiento 2
     """
     # TODO: Realizar el requerimiento 2
-    datos_ordenados = sa.sort(data_structs, com_req_2)
+    datos_ordenados = merg.sort(data_structs, com_req_2)
     iterado = lt.iterator(datos_ordenados)
     lista_aux = {
         "data": None
@@ -146,12 +146,24 @@ def req_2(data_structs):
             lt.addLast(lista_aux, dic)
     return lista_aux
 
+def com_req_3(data_1, data_2):
+    return (float(data_1['Total retenciones']) > float(data_2['Total retenciones']))
+
 def req_3(data_structs):
     """
     Función que soluciona el requerimiento 3
     """
     # TODO: Realizar el requerimiento 3
-    pass
+    datos_ordenados = merg.sort(data_structs, com_req_3)
+    iterado = lt.iterator(datos_ordenados)
+    lista_aux = {
+        "data": None
+    }
+    lista_aux["data"] = lt.newList(datastructure="ARRAY_LIST")
+    for dic in iterado:
+        if dic["Año"] not in lista_aux:
+            lt.addLast(lista_aux, dic)
+    return lista_aux
 
 
 def req_4(data_structs):
@@ -275,7 +287,7 @@ def req_6(data_structs, anio_pedido):
             else:
                 sectoranio=lt.lastElement(sa.sort((lt.subList(lista_agrupada_anio[indice_anioo], inicio, (indice+1-inicio))), sort_criteria_ingresos_netos))
                 
-            lt.addFirst((lista_sectores[0]),tuple((lista_agrupada_anio[indice_anioo][inicio]['Nombre sector económico']),sectoranio))
+            lt.addFirst((lista_sectores[0]),tuple((lista_agrupada_anio[indice_anioo][inicio]['Actividad económica']),sectoranio))
             inicio=indice+1
             indice=inicio 
         indice_anioo+=1
