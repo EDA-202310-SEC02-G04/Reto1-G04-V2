@@ -90,7 +90,7 @@ def print_req_2(control):
         Función que imprime la solución del Requerimiento 2 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 2
-    pass
+    return controller.req_2(control)
 
 
 def print_req_3(control):
@@ -106,7 +106,7 @@ def print_req_4(control):
         Función que imprime la solución del Requerimiento 4 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 4
-    pass
+    return controller.req_4(control)
 
 
 def print_req_5(control):
