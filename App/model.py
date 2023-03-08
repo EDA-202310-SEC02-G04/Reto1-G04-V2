@@ -137,7 +137,24 @@ def req_4(data_structs):
     Función que soluciona el requerimiento 4
     """
     # TODO: Realizar el requerimiento 4
-    pass
+    lista=data_structs
+    lista_grande=ins.sort(lista, sort_criteria_nomina)
+    j=data_size(lista_grande)-1
+    respuesta=[]
+    anioo=2012
+    anio=(lista_grande)[j]['Año']
+    dato=tuple(((lista_grande)[j]['Nombre subsector económico']),anio)
+    while j>-1:
+        if anio==anioo:
+            lt.addLast(respuesta, dato)
+            anioo+=1
+            j=data_size(lista_grande)-1
+        else:
+            j+=1
+    return respuesta
+        
+    
+    
 
 
 def req_5(data_structs):
@@ -148,13 +165,44 @@ def req_5(data_structs):
     pass
 
 
-def req_6(data_structs):
+def req_6(data_structs, anio_pedido):
     """
     Función que soluciona el requerimiento 6
     """
     # TODO: Realizar el requerimiento 6
-    pass
-
+    lista_por_anio=ins.sort(data_structs, sort_criteria)
+    lista_agrupada_anio=[[],[],[],[],[],[],[],[],[],[]]
+    anioo=2012
+    indice_anioo=0
+    indice_grande=0
+    lista_sectores=[[],[],[],[],[],[],[],[],[],[]]
+    while lt.size(lista_por_anio)>0:
+        while lista_por_anio[indice_grande]['Año']==anioo:
+            lt.addLast(lista_agrupada_anio[indice_anioo], lista_por_anio[indice_grande])
+            lt.deleteElement(lista_por_anio, indice_grande)
+            indice_grande+=1
+        indice_anioo+=1
+        indice_grande=0
+    indice_anioo=0
+    while indice_anioo<lt.size(lista_agrupada_anio):
+        sa.sort((lista_agrupada_anio[indice_anioo]), sort_criteria_sec_economico)
+        indice_anioo+=1
+    indice_anioo=0
+    inicio=0
+    indice=inicio
+    while indice_anioo<lt.size(lista_agrupada_anio):
+        while indice<lt.size(lista_agrupada_anio[indice_anioo]):
+            if lista_agrupada_anio[indice_anioo][indice]['Nombre sector económico']==lista_agrupada_anio[indice_anioo][inicio]['Nombre sector económico']:
+                indice+=1
+            else:
+                sectoranio=lt.lastElement(sa.sort((lt.subList(lista_agrupada_anio[indice_anioo], inicio, (indice+1-inicio))), sort_criteria_ingresos_netos))
+                
+            lt.addFirst((lista_sectores[0]),tuple((lista_agrupada_anio[indice_anioo][inicio]['Nombre sector económico']),sectoranio))
+            inicio=indice+1
+            indice=inicio 
+        indice_anioo+=1
+    respuesta=lista_sectores[(anio_pedido-2012)]
+    return respuesta
 
 def req_7(data_structs):
     """
@@ -200,12 +248,22 @@ def sort_criteria(data_1, data_2):
         _type_: _description_
     """
     #TODO: Crear función comparadora para ordenar
-    return data_1["id"] > data_2["id"]
+    return data_1["Año"] > data_2["Año"]
 
+def sort_criteria_nomina(data_1, data_2):
+    return data_1["Costos y gastos nómina"] > data_2["Costos y gastos nómina"]
+
+def sort_criteria_sec_economico(data_1, data_2):
+    return data_1["Nombre sector económico"] > data_2["Nombre sector económico"]
+
+def sort_criteria_ingresos_netos(data_1, data_2):
+    return data_1["Total ingresos netos"] > data_2["Total ingresos netos"]
 
 def sort(data_structs):
     """
     Función encargada de ordenar la lista con los datos
     """
     #TODO: Crear función de ordenamiento
+    lista=sa.sort(data_structs["data"], sort_criteria)
+    return lista
     pass
