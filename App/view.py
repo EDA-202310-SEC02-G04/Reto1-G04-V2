@@ -38,6 +38,7 @@ operación solicitada
 """
 
 
+
 def new_controller(data_organization):
     """
         Se crea una instancia del controlador
@@ -65,7 +66,7 @@ def load_data(control, ruta):
     """
     Carga los datos
     """
-    ruta=cf.data_dir + 'Dian\Salida_agregados_renta_juridicos_AG-small.csv'
+    ruta=cf.data_dir + 'Dian\Salida_agregados_renta_juridicos_AG-large.csv'
     data = controller.load_data(control, ruta)
     return data
 
@@ -114,7 +115,7 @@ def print_req_5(control):
         Función que imprime la solución del Requerimiento 5 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 5
-    pass
+    return controller.req_5(control)
 
 
 def print_req_6(control):
@@ -125,12 +126,12 @@ def print_req_6(control):
     pass
 
 
-def print_req_7(control):
+def print_req_7(control, año_inicio, año_fin, N_valor):
     """
         Función que imprime la solución del Requerimiento 7 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 7
-    pass
+    return controller.req_7(control, año_inicio, año_fin, N_valor)
 
 
 def print_req_8(control):
@@ -157,7 +158,7 @@ if __name__ == "__main__":
         try:
             if int(inputs) == 1:
                 print("Cargando información de los archivos ....\n")
-                ruta=cf.data_dir + 'Dian\Salida_agregados_renta_juridicos_AG-small.csv'
+                ruta=cf.data_dir + 'Dian\Salida_agregados_renta_juridicos_AG-large.csv'
                 data = load_data(control, ruta)
                 print("La cantidad de datos cargados son " + str(lt.size(data["data"]))+ ("\n"))
                 
@@ -191,7 +192,10 @@ if __name__ == "__main__":
                 print_req_6(control)
 
             elif int(inputs) == 8:
-                print_req_7(control)
+                año_inicio = input("Introduzca el año inicial: \n")
+                año_fin = input("Introduzca el año final: \n")
+                N_valor = input("Introduzca el valor N del top: \n")
+                print_req_7(control, año_inicio, año_fin, N_valor)
 
             elif int(inputs) == 9:
                 print_req_8(control)
