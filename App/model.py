@@ -107,22 +107,44 @@ def data_size(data_structs):
     #TODO: Crear la función para obtener el tamaño de una lista
     return lt.size(data_structs["data"])
 
+def com_req_1(data_1, data_2):
+    return (float(data_1['Total saldo a pagar']) < float(data_2['Total saldo a pagar']))
 
 def req_1(data_structs):
     """
     Función que soluciona el requerimiento 1
     """
     # TODO: Realizar el requerimiento 1
-    pass
+    datos_ordenados = sa.sort(data_structs, com_req_1)
+    iterado = lt.iterator(datos_ordenados)
+    lista_aux = {
+        "data": None
+    }
+    lista_aux["data"] = lt.newList(datastructure="ARRAY_LIST")
+    for dic in iterado:
+        if dic['Año'] not in lista_aux:
+            lt.addLast(lista_aux, dic)
+    return lista_aux
+     
 
+def com_req_2(data_1, data_2):
+    return (float(data_1['Total saldo a favor']) > float(data_2['Total saldo a favor']))
 
 def req_2(data_structs):
     """
     Función que soluciona el requerimiento 2
     """
     # TODO: Realizar el requerimiento 2
-    pass
-
+    datos_ordenados = sa.sort(data_structs, com_req_2)
+    iterado = lt.iterator(datos_ordenados)
+    lista_aux = {
+        "data": None
+    }
+    lista_aux["data"] = lt.newList(datastructure='ARRAY_LIST')
+    for dic in iterado:
+        if dic['Año'] not in lista_aux:
+            lt.addLast(lista_aux, dic)
+    return lista_aux
 
 def req_3(data_structs):
     """
